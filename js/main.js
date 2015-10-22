@@ -2,67 +2,88 @@ import $ from 'jquery';
 import _ from 'underscore';
 import moment from 'moment';
 
-console.log('Hello, World');
 var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var x = canvas.width/2;
+var y = canvas.height-30;
+var dx = 2;
+var dy = -2;
+var ballRadius = 10;
+var meHeight = 20;
+var meWidth = 20;
+var meLocationX = (canvas.width-meWidth)/2;
+var meLocationY = (canvas.height-meHeight)/2
+var rightPressed = false;
+var leftPressed = false;
+var upPressed = false;
+var downPressed = false;
 
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
 
-var Goodguy = function(canvas, health){   //making a Goodguy constructor
-  this.health = health,
-  this.die = function(){
-    console.log('you died');
-
-  }
+function keyDownHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = true;
+    } else if(e.keyCode == 37){
+        leftPressed = true;
+    } else if(e.keyCode == 38){
+        upPressed = true;
+    } else if(e.keyCode == 40){
+        downPressed = true;
+    }
 }
-var me = new Goodguy;  //instance of Goodguy
-me.health = 100;
-console.log(me);
-var enemies = [$('#enemy'), $('#enemy2'), $('#enemy3'), $('#enemy4'), ];
 
-var animate = function(y) {
-          _.each(y, function(x){
-           x.animate({
-           left: Math.random()*200, 
-           bottom:  Math.random()*200,
-           right: Math.random()*200,
-           top: Math.random()*200,
-           }, 1000, 'linear', function(){
-             animate(enemies);
-          });
-})};          
-animate(enemies);
-        
+function keyUpHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = false;
+    } else if(e.keyCode == 37){
+        leftPressed = false;
+    } else if(e.keyCode == 38){
+        upPressed = false;
+    } else if(e.keyCode == 40){
+        downPressed = false;
+    }
+}
 
+function drawMe() {
+    ctx.beginPath();
+    ctx.rect(meLocationX, meLocationY, meWidth, meHeight);
+    ctx.fillStyle = "black";
+    ctx.fill();
+    ctx.closePath();
 
+}
 
+function dude(){
 
-$("body").keydown(function(e) {
-  if(e.keyCode == 37) { // left
-    $('#wat').animate({
-      left: "-=20",
-      
-    }, 50);
+  ctx.beginPath();
+  ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+  ctx.fillStyle = "#0095DD";
+  ctx.fill();
+  ctx.closePath();
 
-  }
-  else if(e.keyCode == 39) { // right
-    $('#wat').animate({
-      left: "+=20",
-      
-    }, 50);
+}
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  dude();
+  drawMe();
+  if(y + dy > canvas.height || y + dy < 0) {
+    dy = -dy;
+  };
+  if(x + dx > canvas.width || x + dx < 0) {
+    dx = -dx;
+  };  
+  if(rightPressed){
+        meLocationX += 2;
+    } else if(leftPressed){
+        meLocationX -= 2;
+    } else if(upPressed){
+        meLocationY -= 2;
+    } else if(downPressed){
+        meLocationY += 2;
+    }
+  x += dx;
+  y += dy;
 
-  }
-  else if(e.keyCode == 38){
-    $('#wat').animate({
-      bottom: '+=20',
-      
-    }, 50);
-
-  }
-    else if(e.keyCode == 40){
-    $('#wat').animate({
-      bottom: '-=20',
-      
-    }, 50);
-
-} e.preventDefault();
-
-});
+}
+setInterval(draw, 10);

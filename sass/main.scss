@@ -4,39 +4,44 @@
 body {
   background: #e2ebf3;
 }
-#wat{
-  position: relative;
-  left: 1000px;
+canvas{
+  height: 800px;
+  width: 1200px;
+  border: 2px solid blue;
 }
-#enemy{
-  height: 20px;
-  width: 20px;
-  position: relative;
-  left: 100px;
-  display: inline-block;
-  background-color: red;
-}
-#enemy2{
-  height: 20px;
-  width: 20px;
-  position: relative;
-  left: 1000px;
-  display: inline-block;
-  background-color: red;
-}
-#enemy3{
-  height: 20px;
-  width: 20px;
-  position: relative;
-  left: 600px;
-  display: inline-block;
-  background-color: red;
-}
-#enemy4{
-  height: 20px;
-  width: 20px;
-  position: relative;
-  left: 2000px;
-  display: inline-block;
-  background-color: red;
-}
+// #wat{
+//   position: relative;
+//   left: 1000px;
+// }
+// #enemy{
+//   height: 20px;
+//   width: 20px;
+//   position: relative;
+//   left: 100px;
+//   display: inline-block;
+//   background-color: red;
+// }
+// #enemy2{
+//   height: 20px;
+//   width: 20px;
+//   position: absolute;
+//   left: 1000px;
+//   display: inline-block;
+//   background-color: red;
+// }
+// #enemy3{
+//   height: 20px;
+//   width: 20px;
+//   position: relative;
+//   left: 600px;
+//   display: inline-block;
+//   background-color: red;
+// }
+// #enemy4{
+//   height: 20px;
+//   width: 20px;
+//   position: relative;
+//   left: 2000px;
+//   display: inline-block;
+//   background-color: red;
+// }
