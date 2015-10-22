@@ -1,0 +1,42 @@
+@import "bourbon";
+@import "font-awesome";
+
+body {
+  background: #e2ebf3;
+}
+#wat{
+  position: relative;
+  left: 1000px;
+}
+#enemy{
+  height: 20px;
+  width: 20px;
+  position: relative;
+  left: 100px;
+  display: inline-block;
+  background-color: red;
+}
+#enemy2{
+  height: 20px;
+  width: 20px;
+  position: relative;
+  left: 1000px;
+  display: inline-block;
+  background-color: red;
+}
+#enemy3{
+  height: 20px;
+  width: 20px;
+  position: relative;
+  left: 600px;
+  display: inline-block;
+  background-color: red;
+}
+#enemy4{
+  height: 20px;
+  width: 20px;
+  position: relative;
+  left: 2000px;
+  display: inline-block;
+  background-color: red;
+}
