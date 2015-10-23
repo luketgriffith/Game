@@ -8,7 +8,7 @@ var x = canvas.width/2;
 var y = canvas.height-30;
 var dx = 1;
 var dy = -1;
-var ballRadius = 10;
+var badWidth = 20;
 var meHeight = 20;
 var meWidth = 20;
 var meLocationX = (canvas.width-meWidth)/2;
@@ -30,7 +30,10 @@ var Goodguy = function (params) {
 var you = new Goodguy();
 you.name='Darth';
 you.health= 100;
-console.log(you); 
+you.die = function(){
+  alert('you are so dead');
+}
+
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -81,12 +84,16 @@ function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   dude();
   drawMe();
-  if(y + dy > canvas.height || y + dy < 0) {
-    dy = -dy;
-  };
-  if(x + dx > canvas.width || x + dx < 0) {
-    dx = -dx;
-  };  
+ 
+    $('.healthMon').text(you.health);
+    if(x + dx > canvas.width-badWidth || x + dx < 0) {
+        dx = -dx;
+    }
+    if(y + dy > canvas.height-badWidth || y + dy < 0) {
+        dy = -dy;
+    }    
+
+
   if(rightPressed){
         meLocationX = meLocationX += 1;
     } else if(leftPressed){
@@ -98,25 +105,26 @@ function draw() {
     }
    x += dx;
    y += dy;
-  if(meLocationY + meHeight/2  == y + 10 && meLocationX + meWidth/2 == x + 10){
-    alert('meow');
-    you.health = you.health - 20;
-    console.log(you.health);
-  }
-  if(meLocationY - meHeight/2 == y - 10 && meLocationX - meWidth/2 == x - 10){
-    alert('meow');
-    you.health = you.health - 20;
-    console.log(you.health);
-  }
-  if(meLocationY - meHeight/2 == y - 10 && meLocationX + meWidth/2 == x + 10){
-    alert('meow');
-    you.health = you.health - 20;
-    console.log(you.health);
-  }
-    if(meLocationY + meHeight/2 == y + 10 && meLocationX - meWidth/2 == x - 10){
-    alert('meow');
-    you.health = you.health - 20;
-    console.log(you.health);
-  }
+   var z = ((x-meLocationX)*(x-meLocationX)) + ((y-meLocationY)*(y-meLocationY))
+   var d= Math.sqrt(z);
+   
+   if( d < 20){
+
+    alert('hit!');
+      
+     dx= -dx;
+     dy= -dy;
+  
+     you.health= you.health - 20;
+
+     
+
+     if (you.health === 0){
+        you.die();
+
+
+     }
+    
+   }
 };
 setInterval(draw, 10);

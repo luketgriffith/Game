@@ -2026,4 +2026,10 @@ canvas {
   width: 1200px;
   border: 2px solid blue; }
 
+.health {
+  float: right;
+  height: 100px;
+  width: 100px;
+  background-color: green; }
+
 /*# sourceMappingURL=main.css.map */
