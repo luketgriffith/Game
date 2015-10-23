@@ -6,8 +6,8 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var x = canvas.width/2;
 var y = canvas.height-30;
-var dx = 2;
-var dy = -2;
+var dx = 1;
+var dy = -1;
 var ballRadius = 10;
 var meHeight = 20;
 var meWidth = 20;
@@ -17,6 +17,20 @@ var rightPressed = false;
 var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
+
+var Goodguy = function (params) {
+  params = params || {};
+  this.name = params.name;
+  this.health = params.health;
+  this.die = function(){
+    alert('you died');
+  }
+}
+
+var you = new Goodguy();
+you.name='Darth';
+you.health= 100;
+console.log(you); 
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -57,7 +71,7 @@ function drawMe() {
 function dude(){
 
   ctx.beginPath();
-  ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+  ctx.rect(x, y, 20, 20);
   ctx.fillStyle = "#0095DD";
   ctx.fill();
   ctx.closePath();
@@ -74,16 +88,35 @@ function draw() {
     dx = -dx;
   };  
   if(rightPressed){
-        meLocationX += 2;
+        meLocationX = meLocationX += 1;
     } else if(leftPressed){
-        meLocationX -= 2;
+        meLocationX = meLocationX -= 1;
     } else if(upPressed){
-        meLocationY -= 2;
+        meLocationY = meLocationY -= 1;
     } else if(downPressed){
-        meLocationY += 2;
+        meLocationY = meLocationY += 1;
     }
-  x += dx;
-  y += dy;
-
-}
+   x += dx;
+   y += dy;
+  if(meLocationY + meHeight/2  == y + 10 && meLocationX + meWidth/2 == x + 10){
+    alert('meow');
+    you.health = you.health - 20;
+    console.log(you.health);
+  }
+  if(meLocationY - meHeight/2 == y - 10 && meLocationX - meWidth/2 == x - 10){
+    alert('meow');
+    you.health = you.health - 20;
+    console.log(you.health);
+  }
+  if(meLocationY - meHeight/2 == y - 10 && meLocationX + meWidth/2 == x + 10){
+    alert('meow');
+    you.health = you.health - 20;
+    console.log(you.health);
+  }
+    if(meLocationY + meHeight/2 == y + 10 && meLocationX - meWidth/2 == x - 10){
+    alert('meow');
+    you.health = you.health - 20;
+    console.log(you.health);
+  }
+};
 setInterval(draw, 10);
