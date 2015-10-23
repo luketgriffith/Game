@@ -17,12 +17,20 @@ var _moment2 = _interopRequireDefault(_moment);
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-var x = canvas.width / 2;
+
+var x = canvas.width / 2; //make bad guy 1
 var y = canvas.height - 30;
 var dx = 1;
 var dy = -1;
 var badWidth = 20;
-var meHeight = 20;
+
+var x2 = canvas.width / 5; //make bad guy 2
+var y2 = canvas.height - 30;
+var dx2 = 1;
+var dy2 = -1;
+var badWidth2 = 20;
+
+var meHeight = 20; //get good guy on page
 var meWidth = 20;
 var meLocationX = (canvas.width - meWidth) / 2;
 var meLocationY = (canvas.height - meHeight) / 2;
@@ -32,104 +40,205 @@ var upPressed = false;
 var downPressed = false;
 
 var Goodguy = function Goodguy(params) {
-    params = params || {};
-    this.name = params.name;
-    this.health = params.health;
-    this.die = function () {
-        alert('you died');
-    };
+  //good guy constructor
+  params = params || {};
+  this.name = params.name;
+  this.health = params.health;
+  this.die = function () {
+    alert('you died');
+  };
 };
 
-var you = new Goodguy();
+var you = new Goodguy(); //new good guy, you
 you.name = 'Darth';
 you.health = 100;
 you.die = function () {
-    alert('you are so dead');
+  alert('you are so dead');
 };
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
 function keyDownHandler(e) {
-    if (e.keyCode == 39) {
-        rightPressed = true;
-    } else if (e.keyCode == 37) {
-        leftPressed = true;
-    } else if (e.keyCode == 38) {
-        upPressed = true;
-    } else if (e.keyCode == 40) {
-        downPressed = true;
-    }
+  if (e.keyCode == 39) {
+    rightPressed = true;
+  } else if (e.keyCode == 37) {
+    leftPressed = true;
+  } else if (e.keyCode == 38) {
+    upPressed = true;
+  } else if (e.keyCode == 40) {
+    downPressed = true;
+  }
 }
 
 function keyUpHandler(e) {
-    if (e.keyCode == 39) {
-        rightPressed = false;
-    } else if (e.keyCode == 37) {
-        leftPressed = false;
-    } else if (e.keyCode == 38) {
-        upPressed = false;
-    } else if (e.keyCode == 40) {
-        downPressed = false;
-    }
+  if (e.keyCode == 39) {
+    rightPressed = false;
+  } else if (e.keyCode == 37) {
+    leftPressed = false;
+  } else if (e.keyCode == 38) {
+    upPressed = false;
+  } else if (e.keyCode == 40) {
+    downPressed = false;
+  }
 }
 
 function drawMe() {
-    ctx.beginPath();
-    ctx.rect(meLocationX, meLocationY, meWidth, meHeight);
-    ctx.fillStyle = "black";
-    ctx.fill();
-    ctx.closePath();
+  ctx.beginPath();
+  ctx.rect(meLocationX, meLocationY, meWidth, meHeight);
+  ctx.fillStyle = "black";
+  ctx.fill();
+  ctx.closePath();
 }
 
 function dude() {
 
-    ctx.beginPath();
-    ctx.rect(x, y, 20, 20);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
+  ctx.beginPath();
+  ctx.rect(x, y, 20, 20);
+  ctx.fillStyle = "#0095DD";
+  ctx.fill();
+  ctx.closePath();
 }
+function dude2() {
+
+  ctx.beginPath();
+  ctx.rect(x2, y2, 20, 20);
+  ctx.fillStyle = "red";
+  ctx.fill();
+  ctx.closePath();
+}
+var time1 = Date.now();
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    dude();
-    drawMe();
 
-    (0, _jquery2['default'])('.healthMon').text(you.health);
-    if (x + dx > canvas.width - badWidth || x + dx < 0) {
-        dx = -dx;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  dude(); //creating bad guy
+  dude2();
+  drawMe(); //creating good guy
+
+  (0, _jquery2['default'])('.healthMon').text(you.health); //adding health monitor
+
+  if (x + dx > canvas.width - badWidth || x + dx < 0) {
+    //making bad guy bounce around
+    dx = -dx;
+  }
+  if (y + dy > canvas.height - badWidth || y + dy < 0) {
+    dy = -dy;
+  }
+  if (x2 + dx2 > canvas.width - badWidth2 || x2 + dx2 < 0) {
+    //making bad guy bounce around
+    dx2 = -dx2;
+  }
+  if (y2 + dy2 > canvas.height - badWidth2 || y2 + dy2 < 0) {
+    dy2 = -dy2;
+  }
+
+  if (rightPressed) {
+    //moving Good Guy around
+    meLocationX = meLocationX += 1;
+    if (meLocationX + meWidth > canvas.width) {
+      meLocationX = 0 - meWidth;
     }
-    if (y + dy > canvas.height - badWidth || y + dy < 0) {
-        dy = -dy;
+  } else if (leftPressed) {
+    meLocationX = meLocationX -= 1;
+    if (meLocationX < 0) {
+      meLocationX = canvas.width;
+    }
+  } else if (upPressed) {
+    meLocationY = meLocationY -= 1;
+    if (meLocationY < 0) {
+      meLocationY = canvas.height;
+    }
+  } else if (downPressed) {
+    meLocationY = meLocationY += 1;
+    if (meLocationY + meHeight > canvas.height) {
+      meLocationY = 0;
+    }
+  }
+  x += dx;
+  y += dy;
+  x2 += dx2;
+  y2 += dy2;
+  var z = (x - meLocationX) * (x - meLocationX) + (y - meLocationY) * (y - meLocationY);
+  var z2 = (x2 - meLocationX) * (x2 - meLocationX) + (y2 - meLocationY) * (y2 - meLocationY);
+
+  var d = Math.sqrt(z);
+  var d2 = Math.sqrt(z2);
+  if (d < 20) {
+
+    (0, _jquery2['default'])('.hitMon').addClass('show');
+    setTimeout(function () {
+      (0, _jquery2['default'])('.hitMon').removeClass('show');
+    }, 500);
+    (0, _jquery2['default'])('body').addClass('flash');
+    setTimeout(function () {
+      (0, _jquery2['default'])('body').removeClass('flash');
+    }, 10);
+    if (x < meLocationX) {
+      //making sure bad guy doesn't get 'stuck' on good guy
+      x = x - meWidth - 2;
+    }
+    if (y < meLocationY) {
+      y = y - meHeight - 2;
+    }
+    if (x > meLocationX) {
+      x = x + meWidth + 2;
+    }
+    if (y > meLocationY) {
+      y = y + meHeight + 2;
     }
 
-    if (rightPressed) {
-        meLocationX = meLocationX += 1;
-    } else if (leftPressed) {
-        meLocationX = meLocationX -= 1;
-    } else if (upPressed) {
-        meLocationY = meLocationY -= 1;
-    } else if (downPressed) {
-        meLocationY = meLocationY += 1;
+    dx = -dx;
+    dy = -dy;
+    d = 21;
+    you.health = you.health - 20;
+    if (you.health === 0) {
+      you.die();
+      you.health = 100;
+      var time2 = Date.now();
+      var score = (time2 - time1) / 1000;
+      console.log(score);
+      (0, _jquery2['default'])('.score').text(score);
     }
-    x += dx;
-    y += dy;
-    var z = (x - meLocationX) * (x - meLocationX) + (y - meLocationY) * (y - meLocationY);
-    var d = Math.sqrt(z);
+  }
+  if (d2 < 20) {
 
-    if (d < 20) {
+    (0, _jquery2['default'])('.hitMon').addClass('show');
+    setTimeout(function () {
+      (0, _jquery2['default'])('.hitMon').removeClass('show');
+    }, 500);
+    (0, _jquery2['default'])('body').addClass('flash');
+    setTimeout(function () {
+      (0, _jquery2['default'])('body').removeClass('flash');
+    }, 10);
 
-        alert('hit!');
-
-        dx = -1.01 * dx;
-        dy = -1.01 * dy;
-
-        you.health = you.health - 20;
-
-        if (you.health === 0) {
-            you.die();
-        }
+    // alert('hit!');
+    if (x2 < meLocationX) {
+      //making sure bad guy doesn't get 'stuck' on good guy
+      x2 = x2 - meWidth - 2;
     }
+    if (y2 < meLocationY) {
+      y2 = y2 - meHeight - 2;
+    }
+    if (x2 > meLocationX) {
+      x2 = x2 + meWidth + 2;
+    }
+    if (y2 > meLocationY) {
+      y2 = y2 + meHeight + 2;
+    }
+
+    dx2 = -dx2;
+    dy2 = -dy2;
+    d2 = 21;
+    you.health = you.health - 20;
+    if (you.health === 0) {
+      you.die();
+      you.health = 100;
+      var time2 = Date.now();
+      var score = (time2 - time1) / 1000;
+      console.log(score);
+      (0, _jquery2['default'])('.score').text(score);
+    }
+  }
 };
 setInterval(draw, 10);
 
