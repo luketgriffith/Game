@@ -1,6 +1,10 @@
+
 import $ from 'jquery';
 import _ from 'underscore';
 import moment from 'moment';
+// export default;
+
+
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -17,6 +21,7 @@ var y2 = canvas.height -30;
 var dx2 = 1;
 var dy2 = -1;
 var badWidth2 = 20;
+var badHeight = 30
 
 
 var meHeight = 20;  //get good guy on page
@@ -109,19 +114,27 @@ function draw() {
  
     $('.healthMon').text(you.health); //adding health monitor
 
-    if(x + dx > canvas.width-badWidth || x + dx < 0) {   //making bad guy bounce around
-        dx = -dx;
-    }
-    if(y + dy > canvas.height-badWidth || y + dy < 0) {
+    // if(x + dx > canvas.width-badWidth || x + dx < 0) {   //making blue guy bounce around
+    //     dx = -dx;
+    // }
+    if(x + dx < 0){ 
+      x = canvas.width;
+     }
+    if(x + dx > canvas.width){
+      x = 0;
+    } 
+    if(y + dy > canvas.height-badHeight || y + dy < 0) {
         dy = -dy;
     }    
-    if(x2 + dx2 > canvas.width-badWidth2 || x2 + dx2 < 0) {   //making bad guy bounce around
+    if(x2 + dx2 > canvas.width-badWidth2 || x2 + dx2 < 0) {   //making red guy bounce around
         dx2 = -dx2;
     }
-    if(y2 + dy2 > canvas.height-badWidth2 || y2 + dy2 < 0) {
-        dy2 = -dy2;
+    if(y2 > canvas.height) {  //make red guy go through the top and bottom
+        y2 = 0;
     }  
-
+    if(y2 < 0){
+      y2 = canvas.height;
+    }
     
     if(rightPressed){   //moving Good Guy around
         meLocationX = meLocationX += 1;
@@ -135,7 +148,7 @@ function draw() {
     } else if(upPressed){
         meLocationY = meLocationY -= 1;
             if(meLocationY < 0){
-              meLocationY = canvas.height;
+              meLocationY = canvas.height + me;
             }
     } else if(downPressed){
         meLocationY = meLocationY += 1;
@@ -186,7 +199,7 @@ function draw() {
         var time2 = Date.now();
         var score= (time2-time1)/1000
         console.log(score);
-        $('.score').text(score);
+        $('.scoreMon').text(score);
      }
     
    }
@@ -231,3 +244,4 @@ function draw() {
    }
 };
 setInterval(draw, 10);
+

@@ -1,4 +1,5 @@
 import Goodguy from './main.js'
+console.log(Goodguy);
 (function() {
   'use strict';
 
@@ -10,7 +11,7 @@ describe('Goodguy', function () {
   
   describe('Creating a new Goodguy', function () {
 
-        
+
 
         it('should be an instance of Goodguy', function () {
           expect(you).to.be.an.instanceof(Goodguy);

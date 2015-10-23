@@ -15,6 +15,8 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+// export default;
+
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
@@ -29,6 +31,7 @@ var y2 = canvas.height - 30;
 var dx2 = 1;
 var dy2 = -1;
 var badWidth2 = 20;
+var badHeight = 30;
 
 var meHeight = 20; //get good guy on page
 var meWidth = 20;
@@ -117,19 +120,28 @@ function draw() {
 
   (0, _jquery2['default'])('.healthMon').text(you.health); //adding health monitor
 
-  if (x + dx > canvas.width - badWidth || x + dx < 0) {
-    //making bad guy bounce around
-    dx = -dx;
+  // if(x + dx > canvas.width-badWidth || x + dx < 0) {   //making blue guy bounce around
+  //     dx = -dx;
+  // }
+  if (x + dx < 0) {
+    x = canvas.width;
   }
-  if (y + dy > canvas.height - badWidth || y + dy < 0) {
+  if (x + dx > canvas.width) {
+    x = 0;
+  }
+  if (y + dy > canvas.height - badHeight || y + dy < 0) {
     dy = -dy;
   }
   if (x2 + dx2 > canvas.width - badWidth2 || x2 + dx2 < 0) {
-    //making bad guy bounce around
+    //making red guy bounce around
     dx2 = -dx2;
   }
-  if (y2 + dy2 > canvas.height - badWidth2 || y2 + dy2 < 0) {
-    dy2 = -dy2;
+  if (y2 > canvas.height) {
+    //make red guy go through the top and bottom
+    y2 = 0;
+  }
+  if (y2 < 0) {
+    y2 = canvas.height;
   }
 
   if (rightPressed) {
@@ -146,7 +158,7 @@ function draw() {
   } else if (upPressed) {
     meLocationY = meLocationY -= 1;
     if (meLocationY < 0) {
-      meLocationY = canvas.height;
+      meLocationY = canvas.height + me;
     }
   } else if (downPressed) {
     meLocationY = meLocationY += 1;
@@ -197,7 +209,7 @@ function draw() {
       var time2 = Date.now();
       var score = (time2 - time1) / 1000;
       console.log(score);
-      (0, _jquery2['default'])('.score').text(score);
+      (0, _jquery2['default'])('.scoreMon').text(score);
     }
   }
   if (d2 < 20) {
@@ -251,6 +263,7 @@ var _mainJs = require('./main.js');
 
 var _mainJs2 = _interopRequireDefault(_mainJs);
 
+console.log(_mainJs2['default']);
 (function () {
   'use strict';
 
