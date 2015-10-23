@@ -1,6 +1,36 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+var Goodguy = function Goodguy(params) {
+  //good guy constructor
+  params = params || {};
+  this.name = params.name;
+  this.health = params.health;
+  this.die = function () {
+    alert('you died');
+  };
+};
+var you = new Goodguy(); //new good guy, you
+you.name = 'Darth';
+you.health = 100;
+you.die = function () {
+  alert('you are so dead');
+};
+
+exports['default'] = Goodguy;
+exports['default'] = you;
+module.exports = exports['default'];
+
+},{}],2:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _jquery = require('jquery');
@@ -15,8 +45,13 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
-// export default;
+var _goodguy = require('./goodguy');
 
+var _goodguy2 = _interopRequireDefault(_goodguy);
+
+var _goodguy3 = _interopRequireDefault(_goodguy);
+
+console.log(_goodguy3['default']);
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
@@ -41,23 +76,6 @@ var rightPressed = false;
 var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
-
-var Goodguy = function Goodguy(params) {
-  //good guy constructor
-  params = params || {};
-  this.name = params.name;
-  this.health = params.health;
-  this.die = function () {
-    alert('you died');
-  };
-};
-
-var you = new Goodguy(); //new good guy, you
-you.name = 'Darth';
-you.health = 100;
-you.die = function () {
-  alert('you are so dead');
-};
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -118,7 +136,7 @@ function draw() {
   dude2();
   drawMe(); //creating good guy
 
-  (0, _jquery2['default'])('.healthMon').text(you.health); //adding health monitor
+  (0, _jquery2['default'])('.healthMon').text(_goodguy3['default'].health); //adding health monitor
 
   // if(x + dx > canvas.width-badWidth || x + dx < 0) {   //making blue guy bounce around
   //     dx = -dx;
@@ -202,10 +220,10 @@ function draw() {
     dx = -dx;
     dy = -dy;
     d = 21;
-    you.health = you.health - 20;
-    if (you.health === 0) {
-      you.die();
-      you.health = 100;
+    _goodguy3['default'].health = _goodguy3['default'].health - 20;
+    if (_goodguy3['default'].health === 0) {
+      _goodguy3['default'].die();
+      _goodguy3['default'].health = 100;
       var time2 = Date.now();
       var score = (time2 - time1) / 1000;
       console.log(score);
@@ -241,10 +259,10 @@ function draw() {
     dx2 = -dx2;
     dy2 = -dy2;
     d2 = 21;
-    you.health = you.health - 20;
-    if (you.health === 0) {
-      you.die();
-      you.health = 100;
+    _goodguy3['default'].health = _goodguy3['default'].health - 20;
+    if (_goodguy3['default'].health === 0) {
+      _goodguy3['default'].die();
+      _goodguy3['default'].health = 100;
       var time2 = Date.now();
       var score = (time2 - time1) / 1000;
       console.log(score);
@@ -252,9 +270,13 @@ function draw() {
     }
   }
 };
+
 setInterval(draw, 10);
 
-},{"jquery":2,"moment":3,"underscore":4}],2:[function(require,module,exports){
+exports['default'] = _goodguy2['default'];
+module.exports = exports['default'];
+
+},{"./goodguy":1,"jquery":3,"moment":4,"underscore":5}],3:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -9466,7 +9488,7 @@ return jQuery;
 
 }));
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 //! moment.js
 //! version : 2.10.6
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -12662,7 +12684,7 @@ return jQuery;
     return _moment;
 
 }));
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -14212,7 +14234,7 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[1])
+},{}]},{},[2])
 
 
 //# sourceMappingURL=main.js.map

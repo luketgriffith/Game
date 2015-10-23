@@ -2,12 +2,14 @@
 import $ from 'jquery';
 import _ from 'underscore';
 import moment from 'moment';
-// export default;
+import Goodguy from './goodguy';
+import you from './goodguy';
 
 
-
+console.log(you);
 var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
+var ctx = canvas.getContext("2d"); 
+
 
 var x = canvas.width/2; //make bad guy 1
 var y = canvas.height-30;
@@ -33,21 +35,9 @@ var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
 
-var Goodguy = function (params) {  //good guy constructor
-  params = params || {};
-  this.name = params.name;
-  this.health = params.health;
-  this.die = function(){
-    alert('you died');
-  }
-}
 
-var you = new Goodguy();  //new good guy, you
-you.name='Darth';
-you.health= 100;
-you.die = function(){
-  alert('you are so dead');
-}
+
+
 
 
 document.addEventListener("keydown", keyDownHandler, false);
@@ -243,5 +233,7 @@ function draw() {
     
    }
 };
+
 setInterval(draw, 10);
 
+export default Goodguy;
