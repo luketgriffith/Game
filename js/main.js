@@ -17,6 +17,8 @@ var dx = 1;
 var dy = -1;
 var badWidth = 20;
 
+var hitsound = new Audio('../punch.wav');
+
 
 var x2 = canvas.width/5;  //make bad guy 2
 var y2 = canvas.height -30;
@@ -182,6 +184,7 @@ function draw() {
      dx= -dx;
      dy= -dy;
      d = 21;
+     hitsound.play();
      you.health= you.health - 20;
      if (you.health === 0){
         you.die();
@@ -221,6 +224,7 @@ function draw() {
      dx2= -dx2;
      dy2= -dy2;
      d2 = 21;
+     hitsound.play();
      you.health= you.health - 20;
      if (you.health === 0){
         you.die();
