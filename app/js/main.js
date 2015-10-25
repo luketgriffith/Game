@@ -139,10 +139,10 @@ function draw() {
   drawMe(); //creating good guy
 
   (0, _jquery2['default'])('.healthMon').text(_goodguy3['default'].health); //adding health monitor
+  var time2 = Date.now();
+  var score = (time2 - time1) / 1000;
+  (0, _jquery2['default'])('.scoreMon').text(score);
 
-  // if(x + dx > canvas.width-badWidth || x + dx < 0) {   //making blue guy bounce around
-  //     dx = -dx;
-  // }
   if (x + dx < 0) {
     x = canvas.width;
   }
@@ -227,10 +227,7 @@ function draw() {
     if (_goodguy3['default'].health === 0) {
       _goodguy3['default'].die();
       _goodguy3['default'].health = 100;
-      var time2 = Date.now();
-      var score = (time2 - time1) / 1000;
-      console.log(score);
-      (0, _jquery2['default'])('.scoreMon').text(score);
+      time1 = time2;
     }
   }
   if (d2 < 20) {
@@ -267,10 +264,7 @@ function draw() {
     if (_goodguy3['default'].health === 0) {
       _goodguy3['default'].die();
       _goodguy3['default'].health = 100;
-      var time2 = Date.now();
-      var score = (time2 - time1) / 1000;
-      console.log(score);
-      (0, _jquery2['default'])('.score').text(score);
+      time1 = time2;
     }
   }
 };

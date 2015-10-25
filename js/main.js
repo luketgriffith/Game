@@ -105,10 +105,10 @@ function draw() {
     drawMe(); //creating good guy
  
     $('.healthMon').text(you.health); //adding health monitor
-
-    // if(x + dx > canvas.width-badWidth || x + dx < 0) {   //making blue guy bounce around
-    //     dx = -dx;
-    // }
+    var time2 = Date.now();
+    var score= (time2-time1)/1000
+    $('.scoreMon').text(score);
+  
     if(x + dx < 0){ 
       x = canvas.width;
      }
@@ -188,12 +188,9 @@ function draw() {
      you.health= you.health - 20;
      if (you.health === 0){
         you.die();
-        you.health = 100;  
-        var time2 = Date.now();
-        var score= (time2-time1)/1000
-        console.log(score);
-        $('.scoreMon').text(score);
-     }
+        you.health = 100; 
+        time1 = time2; 
+        }
     
    }
    if( d2 < 20){
@@ -228,11 +225,9 @@ function draw() {
      you.health= you.health - 20;
      if (you.health === 0){
         you.die();
-        you.health = 100;  
-        var time2 = Date.now();
-        var score= (time2-time1)/1000
-        console.log(score);
-        $('.score').text(score);
+        you.health = 100;
+        time1 = time2;
+      
      }
     
    }
