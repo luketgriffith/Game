@@ -14,9 +14,11 @@ import you from './goodguy';
     
       
         it('should be an instance of Goodguy', function() {
-          expect(you instanceof Goodguy()).to.equal(true);
+          expect(Goodguy).to.be.an('object');
         });
-    
+        it('you should be an instance', function(){
+          expect(you).to.be.an('object');
+        })  
         
 
         it('should have a health', function () {
@@ -24,7 +26,7 @@ import you from './goodguy';
         });
         
         it('should have a die function', function () {
-          expect(you.die).to.equal([Function]);
+          expect(you.die).to.be.a('function');
         });
       });
   

@@ -43,7 +43,10 @@ var _goodguy3 = _interopRequireDefault(_goodguy);
   describe('Creating a new Goodguy', function () {
 
     it('should be an instance of Goodguy', function () {
-      expect(_goodguy3['default'] instanceof (0, _goodguy2['default'])()).to.equal(true);
+      expect(_goodguy2['default']).to.be.an('object');
+    });
+    it('you should be an instance', function () {
+      expect(_goodguy3['default']).to.be.an('object');
     });
 
     it('should have a health', function () {
@@ -51,7 +54,7 @@ var _goodguy3 = _interopRequireDefault(_goodguy);
     });
 
     it('should have a die function', function () {
-      expect(_goodguy3['default'].die).to.equal([Function]);
+      expect(_goodguy3['default'].die).to.be.a('function');
     });
   });
 })();
