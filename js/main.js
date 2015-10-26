@@ -17,7 +17,7 @@ var dx = 1;
 var dy = -1;
 var badWidth = 20;
 
-var hitsound = new Audio('../punch.wav');
+var hitsound = new Audio('../punch.wav');  
 
 
 var x2 = canvas.width/5;  //make bad guy 2

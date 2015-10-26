@@ -2028,34 +2028,24 @@ canvas {
 
 .health {
   float: right;
-  height: 200px;
+  height: 100px;
   width: 100px;
   background-color: green;
   text-align: center; }
   .health h3 {
     font-size: 20px;
-    margin: 0; }
+    margin: 0;
+    margin-top: 19px; }
   .health .healthMon {
-    font-size: 24px; }
+    font-size: 24px;
+    margin-top: 10px; }
 
 .score {
   float: right;
   height: 100px;
   width: 100px;
   background-color: red;
-  position: relative; }
-
-.hit {
-  float: right;
-  height: 100px;
-  width: 200px;
-  background-color: #e2ebf3;
-  position: absolute;
-  top: 100px;
-  right: 0; }
-
-.hitMon {
-  display: none; }
+  text-align: center; }
 
 .show {
   display: block; }
